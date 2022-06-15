@@ -57,18 +57,22 @@ def print_discrepancies(filename):
     print_dict(discrepancy_dictionary)
     return None
 
-def write_discrepancies(filename):
+def write_discrepancies(filename, name=None, path="."):
     """
     Write the discrepancies to a file
     """
     soup = get_soup_from_file(filename)
     discrepancy_dictionary = get_discrepancy_list(soup)
-    with open('discrepancies2.txt', 'w') as file:
+    with open(path + "/" + filename + '.txt', 'w') as file:
+        if name:
+            file.write(name)
+            file.write('\n')
+            
         for key, value in discrepancy_dictionary.items():
             file.write(key)
             for _, subvalue in value.items():
                 file.write("\n")
-                file.write("\t" + subvalue[1:])
+                file.write("\t-" + subvalue[1:])
             file.write("\n")
     return None
 
